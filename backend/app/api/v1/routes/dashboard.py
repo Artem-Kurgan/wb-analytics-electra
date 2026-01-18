@@ -336,3 +336,10 @@ async def sync_cabinet(
     # TODO: Добавить проверку прав на кабинет и запуск Celery задачи
 
     return {"status": "ok", "message": f"Sync started for cabinet {cabinet_id}"}
+from fastapi import APIRouter
+
+router = APIRouter()
+
+@router.get("/")
+async def read_dashboard():
+    return {"message": "Dashboard route"}
