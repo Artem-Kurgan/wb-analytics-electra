@@ -1,6 +1,7 @@
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime, BigInteger, ForeignKey, JSON, Index
 from sqlalchemy.orm import relationship
+from app.db.base_class import Base
 from backend.app.db.base_class import Base
 
 class Product(Base):
