@@ -1,28 +1,32 @@
 import { Layout, Menu } from 'antd'
-import { Link } from 'react-router-dom'
-import { DashboardOutlined, SettingOutlined } from '@ant-design/icons'
+import { DashboardOutlined, ShoppingOutlined, BarChartOutlined, SettingOutlined } from '@ant-design/icons'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const { Sider } = Layout
 
 export default function Sidebar() {
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const items = [
+    { key: '/dashboard', icon: <DashboardOutlined />, label: 'Дашборд' },
+    { key: '/products', icon: <ShoppingOutlined />, label: 'Товары' },
+    { key: '/reports', icon: <BarChartOutlined />, label: 'Отчёты' },
+    { key: '/settings', icon: <SettingOutlined />, label: 'Настройки' }
+  ]
+
   return (
-    <Sider width={200} style={{ background: '#fff' }}>
+    <Sider width={200} style={{ background: '#001529' }}>
+      <div style={{ padding: '20px', color: '#fff', fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}>
+        ⚡ Electra
+      </div>
       <Menu
+        theme="dark"
         mode="inline"
-        defaultSelectedKeys={['1']}
-        style={{ height: '100%', borderRight: 0 }}
-        items={[
-          {
-            key: '1',
-            icon: <DashboardOutlined />,
-            label: <Link to="/dashboard">Dashboard</Link>,
-          },
-          {
-            key: '2',
-            icon: <SettingOutlined />,
-            label: <Link to="/settings">Settings</Link>,
-          },
-        ]}
+        selectedKeys={[location.pathname]}
+        items={items}
+        onClick={(e) => navigate(e.key)}
+        style={{ background: '#001529' }}
       />
     </Sider>
   )

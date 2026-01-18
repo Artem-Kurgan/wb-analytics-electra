@@ -26,7 +26,4 @@ export const authAPI = {
     const response = await client.post('/v1/auth/refresh')
     return response.data
   }
-// TODO: Auth API endpoints
-export const authApi = {
-  // login, logout, etc.
 }

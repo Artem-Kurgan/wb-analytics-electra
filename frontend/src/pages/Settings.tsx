@@ -1,12 +1,17 @@
-import { Typography } from 'antd'
-
-const { Title } = Typography
+import { Card, Form, Input, Button } from 'antd'
 
 export default function Settings() {
   return (
-    <div>
-      <Title level={2}>Settings</Title>
-      <p>TODO: Settings content</p>
-    </div>
+    <Card title="Настройки" style={{ maxWidth: 600 }}>
+      <Form layout="vertical">
+        <Form.Item label="WB API Token">
+          <Input type="password" placeholder="Введи токен WB" />
+        </Form.Item>
+        <Form.Item label="Расписание синков">
+          <Input placeholder="Каждые N часов" />
+        </Form.Item>
+        <Button type="primary">Сохранить</Button>
+      </Form>
+    </Card>
   )
 }

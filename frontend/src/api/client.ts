@@ -67,15 +67,9 @@ client.interceptors.response.use(
       }
     }
 
-client.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('access_token')
-      window.location.href = '/login'
-    }
     return Promise.reject(error)
   }
 )
 
 export default client
+
