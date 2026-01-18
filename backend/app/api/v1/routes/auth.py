@@ -3,15 +3,15 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from backend.app.core.security import (
+from app.core.security import (
     create_access_token,
     create_refresh_token,
     verify_password,
     verify_token,
 )
-from backend.app.core.dependencies import get_db, get_current_user
-from backend.app.models import User
-from backend.app.schemas.user import TokenResponse, UserResponse
+from app.core.dependencies import get_db, get_current_user
+from app.models import User
+from app.schemas.user import TokenResponse, UserResponse
 
 router = APIRouter()
 
@@ -104,10 +104,3 @@ async def logout(response: Response):
 @router.get("/me", response_model=UserResponse)
 async def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user
-from fastapi import APIRouter
-
-router = APIRouter()
-
-@router.get("/")
-async def read_auth():
-    return {"message": "Auth route"}

@@ -1,11 +1,12 @@
 version: '3.8'
+
 services:
   postgres:
     image: postgres:15-alpine
     environment:
-      POSTGRES_DB: wb_analytics_electra
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: electra_db
+      POSTGRES_USER: electra_user
+      POSTGRES_PASSWORD: electra_password
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -53,3 +54,4 @@ services:
 
 volumes:
   postgres_data:
+

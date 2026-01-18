@@ -1,7 +1,7 @@
 from datetime import datetime
 import enum
 from sqlalchemy import Column, Integer, DateTime, Text, ForeignKey, Enum, Index
-from backend.app.db.base_class import Base
+from app.db.base_class import Base
 
 class SyncType(str, enum.Enum):
     stocks = "stocks"

@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from backend.app.api.v1.routes import auth
-from backend.app.db.session import engine, Base, AsyncSessionLocal
-from backend.app.models import User
-from backend.app.core.security import get_password_hash
+from app.api.v1.routes import auth
+from app.db.session import engine, Base, async_session
+from app.models import User
+from app.core.security import get_password_hash
 from sqlalchemy.future import select
 
 @asynccontextmanager
@@ -12,7 +12,7 @@ async def lifespan(app: FastAPI):
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
-    async with AsyncSessionLocal() as session:
+    async with async_session() as session:
         result = await session.execute(select(User).where(User.email == "user@example.com"))
         user = result.scalars().first()
         if not user:
