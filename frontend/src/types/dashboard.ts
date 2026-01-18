@@ -38,4 +38,7 @@ export interface ProductListResponse {
 
 export interface ChartDataResponse {
   data: Array<{ name: string; value: number }>
+// TODO: Dashboard interfaces
+export interface DashboardStats {
+  // ...
 }

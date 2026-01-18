@@ -33,4 +33,7 @@ export const dashboardAPI = {
     const response = await client.post(`/v1/dashboard/sync/${cabinetId}`)
     return response.data
   }
+// TODO: Dashboard API endpoints
+export const dashboardApi = {
+  // getStats, etc.
 }
