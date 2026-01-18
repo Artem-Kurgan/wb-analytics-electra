@@ -104,3 +104,10 @@ async def logout(response: Response):
 @router.get("/me", response_model=UserResponse)
 async def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user
+from fastapi import APIRouter
+
+router = APIRouter()
+
+@router.get("/")
+async def read_auth():
+    return {"message": "Auth route"}
