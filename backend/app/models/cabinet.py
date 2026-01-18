@@ -2,6 +2,7 @@ from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime, Text
 from sqlalchemy.orm import relationship
 from app.db.base_class import Base
+from backend.app.db.base_class import Base
 
 class Cabinet(Base):
     __tablename__ = "cabinets"

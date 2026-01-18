@@ -307,3 +307,10 @@ async def upload_excel(
         # Удалить временный файл
         if os.path.exists(temp_path):
             os.remove(temp_path)
+from fastapi import APIRouter
+
+router = APIRouter()
+
+@router.get("/")
+async def read_settings():
+    return {"message": "Settings route"}

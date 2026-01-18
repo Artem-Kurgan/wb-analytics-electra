@@ -6,6 +6,9 @@ from typing import List
 from app.core.security import verify_token
 from app.db.session import get_db
 from app.models import User, Product
+from backend.app.core.security import verify_token
+from backend.app.db.session import get_db
+from backend.app.models import User, Product
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
