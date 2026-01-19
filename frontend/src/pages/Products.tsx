@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Table, Card, Space, Button, Input, Select, Tag, Image, Statistic, Row, Col, Tooltip } from 'antd'
 import { CopyOutlined, BarcodeOutlined, DownloadOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
+import { productsAPI, Product as APIProduct } from '../api/products'
 
 interface Product {
   nm_id: number
@@ -24,54 +25,18 @@ export default function Products() {
   const [searchText, setSearchText] = useState('')
 
   useEffect(() => {
-    // Пока используем mock данные
-    setProducts([
-      {
-        nm_id: 123456789,
-        vendor_code: 'ТШ-001',
-        barcode: '5032781145187',
-        title: 'Футболка мужская классическая',
-        image_url: null,
-        manager: 'Юля',
-        orders: 1234,
-        sales: 987,
-        revenue: 125450,
-        stock_wb: 45,
-        stock_own: 120,
-        sizes: [
-          { techSize: 'S', wbSize: '42', barcode: '5032781145187' },
-          { techSize: 'M', wbSize: '44', barcode: '5032781145194' },
-          { techSize: 'L', wbSize: '46', barcode: '5032781145201' }
-        ]
-      },
-      {
-        nm_id: 123456790,
-        vendor_code: 'ТШ-002',
-        barcode: '5032781145208',
-        title: 'Рубашка женская хлопок',
-        image_url: null,
-        manager: 'Саша',
-        orders: 567,
-        sales: 450,
-        revenue: 67890,
-        stock_wb: 12,
-        stock_own: 0
-      },
-      {
-        nm_id: 123456791,
-        vendor_code: 'БР-001',
-        barcode: '5032781145215',
-        title: 'Брюки классические',
-        image_url: null,
-        manager: 'Юля',
-        orders: 890,
-        sales: 756,
-        revenue: 234560,
-        stock_wb: 8,
-        stock_own: 45
+const fetchProducts = async () => {
+      try {
+        const data = await productsAPI.getProducts()
+        setProducts(data)
+      } catch (error) {
+        console.error('Failed to fetch products:', error)
+      } finally {
+        setLoading(false)
       }
-    ])
-    setLoading(false)
+    }
+
+        fetchProducts()
   }, [])
 
   const calculateBuyoutPercent = (sales: number, orders: number) => {
