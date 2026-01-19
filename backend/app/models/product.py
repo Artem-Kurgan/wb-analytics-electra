@@ -28,3 +28,4 @@ class Product(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     cabinet = relationship("Cabinet", back_populates="products")
+    sales_history = relationship("SalesHistory", back_populates="product")

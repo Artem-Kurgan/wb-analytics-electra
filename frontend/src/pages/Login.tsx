@@ -1,16 +1,29 @@
-import { Card, Form, Input, Button, Typography } from 'antd'
+import { Card, Form, Input, Button, Typography, Alert } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../store/authStore'
+import { useState } from 'react'
 
 const { Title, Text } = Typography
 
 export default function Login() {
   const navigate = useNavigate()
+  const login = useAuthStore((state) => state.login)
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (values: any) => {
-    console.log('Login attempt:', values)
-    // Временно просто переходим на дашборд для теста
-    navigate('/dashboard')
+  const handleSubmit = async (values: any) => {
+    setError(null)
+    setLoading(true)
+    try {
+      await login(values.email, values.password)
+      navigate('/dashboard')
+    } catch (err: any) {
+      console.error('Login failed:', err)
+      setError('Неверный email или пароль')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -27,6 +40,15 @@ export default function Login() {
           <Text type="secondary">Wildberries Dashboard</Text>
         </div>
 
+        {error && (
+          <Alert
+            message={error}
+            type="error"
+            showIcon
+            style={{ marginBottom: 20 }}
+          />
+        )}
+
         <Form layout="vertical" onFinish={handleSubmit}>
           <Form.Item name="email" rules={[{ required: true, message: 'Введите email' }]}>
             <Input prefix={<UserOutlined />} placeholder="Email" size="large" />
@@ -37,7 +59,7 @@ export default function Login() {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" size="large" block>Войти</Button>
+            <Button type="primary" htmlType="submit" size="large" block loading={loading}>Войти</Button>
           </Form.Item>
         </Form>
 

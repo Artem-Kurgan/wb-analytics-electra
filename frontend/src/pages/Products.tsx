@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { Table, Card, Space, Button, Input, Select, Tag, Image, Statistic, Row, Col, Tooltip } from 'antd'
 import { CopyOutlined, BarcodeOutlined, DownloadOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
-import { productsAPI, Product as APIProduct } from '../api/products'
+import { productsAPI, type Product as APIProduct } from '../api/products'
+import PeriodSelector from '../components/Dashboard/PeriodSelector'
 
 interface Product {
   nm_id: number
@@ -23,11 +24,13 @@ export default function Products() {
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
   const [searchText, setSearchText] = useState('')
+  const [period, setPeriod] = useState('week')
 
   useEffect(() => {
-const fetchProducts = async () => {
+    const fetchProducts = async () => {
+      setLoading(true)
       try {
-        const data = await productsAPI.getProducts()
+        const data = await productsAPI.getProducts({ period })
         setProducts(data)
       } catch (error) {
         console.error('Failed to fetch products:', error)
@@ -36,8 +39,8 @@ const fetchProducts = async () => {
       }
     }
 
-        fetchProducts()
-  }, [])
+    fetchProducts()
+  }, [period])
 
   const calculateBuyoutPercent = (sales: number, orders: number) => {
     if (orders === 0) return 0
@@ -194,6 +197,10 @@ const fetchProducts = async () => {
 
   return (
     <div>
+      <div style={{ marginBottom: 20, display: 'flex', justifyContent: 'flex-end' }}>
+        <PeriodSelector value={period} onChange={setPeriod} />
+      </div>
+
       <Card style={{ marginBottom: 20 }}>
         <Row gutter={16}>
           <Col xs={24} sm={12} md={6}>
@@ -211,7 +218,7 @@ const fetchProducts = async () => {
         </Row>
       </Card>
 
-      <Card title="Товары и продажи">
+      <Card title="Аналитика">
         <Space style={{ marginBottom: 16, display: 'flex', gap: 10 }}>
           <Input
             placeholder="Поиск по названию, артикулу, баркоду..."

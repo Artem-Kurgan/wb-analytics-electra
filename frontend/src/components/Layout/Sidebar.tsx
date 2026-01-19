@@ -10,7 +10,7 @@ export default function Sidebar() {
 
   const items = [
     { key: '/dashboard', icon: <DashboardOutlined />, label: 'Дашборд' },
-    { key: '/products', icon: <ShoppingOutlined />, label: 'Товары' },
+    { key: '/products', icon: <ShoppingOutlined />, label: 'Аналитика' },
     { key: '/reports', icon: <BarChartOutlined />, label: 'Отчёты' },
     { key: '/settings', icon: <SettingOutlined />, label: 'Настройки' }
   ]
