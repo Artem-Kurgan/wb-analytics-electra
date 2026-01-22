@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { authAPI } from './auth'
 
 const client = axios.create({
   baseURL: '/api',
@@ -52,7 +51,10 @@ client.interceptors.response.use(
       isRefreshing = true
 
       try {
-        const { access_token } = await authAPI.refreshToken()
+        // Break circular dependency by using a new axios instance or direct call
+        const response = await axios.post('/api/v1/auth/refresh')
+        const { access_token } = response.data
+
         localStorage.setItem('access_token', access_token)
         processQueue(null, access_token)
         originalRequest.headers.Authorization = `Bearer ${access_token}`

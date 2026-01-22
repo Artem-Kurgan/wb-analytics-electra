@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { authAPI } from '../api/auth'
-import { User } from '../types/user'
+import type { User } from '../types/user'
 
 interface AuthState {
   user: User | null

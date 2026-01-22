@@ -22,4 +22,4 @@ class SalesHistory(Base):
         UniqueConstraint('nm_id', 'date', name='uq_sales_nm_date'),
     )
 
-    product = relationship("Product", back_populates="sales")
+    product = relationship("Product", back_populates="sales_history")

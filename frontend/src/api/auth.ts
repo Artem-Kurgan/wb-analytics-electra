@@ -1,5 +1,5 @@
 import client from './client'
-import { LoginRequest, TokenResponse, User } from '../types/user'
+import type { LoginRequest, TokenResponse, User } from '../types/user'
 
 export const authAPI = {
   login: async (credentials: LoginRequest): Promise<TokenResponse> => {
